@@ -1,24 +1,28 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
-
 ### Variables
-#
-# Logo key. Use Mod1 for Alt.
 set $mod Mod4
+set $term termite
+
+set $bg #000000
+set $bgf #000000
+set $bga #000000
+set $fg #ffffff
+set $fgi #888888
+set $fgu #555555
+set $btf #000000
+
+
 # Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
-set $term termite
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-set $menu bemenu-run #| xargs swaymsg exec --
+
+set $font_family DejaVu Sans Mono
+set $font_size 11
+
+
+#gaps 1
+
 
 ### Output configuration
 #
@@ -87,7 +91,8 @@ input "type:touchpad" {
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
+    # bindsym $mod+Space exec dmenu_path | $menu $menu_args | xargs swaymsg exec
+    bindsym $mod+d exec bemenu-run --fn "$font_family-$font_size" --nb "$bg" --nf "$fgi" --sb "$bgf" --sf "$fg"
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -223,13 +228,19 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    #status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-    swaybar_command waybar
+    status_command while echo "$(acpi -b | awk '{ print $3 $4 }') $(date +'%H:%M')"; do sleep 20; done
+   # swaybar_command waybar
 
     colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        #statusline #ffffff
+        #background #323232
+        #inactive_workspace #32323200 #32323200 #5c5c5c
+	statusline $fg
+	background $bg
+	focused_background $bgf
+	focused_workspace $bgf $bgf $fg
+	active_workspace $bga $bga $fg
+	inactive_workspace $bg $bg $fgi
     }
 }
 
