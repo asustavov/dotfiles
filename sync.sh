@@ -3,4 +3,4 @@ cp -r ~/.config/termite ./.config/
 
 cp ~/.bash_profile .
 cp ~/.bashrc .
-
+cp ~/.vimrc .
