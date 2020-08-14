@@ -3,13 +3,10 @@ set $mod Mod4
 set $term termite
 
 set $bg #000000
-set $bgf #000000
-set $bga #000000
-set $fg #ffffff
-set $fgi #888888
-set $fgu #555555
-set $btf #000000
-
+set $bgf #d8dee8
+set $fg #d8dee8
+set $fga #2f343f
+set $fgi #7c7f84
 
 # Home row direction keys, like vim
 set $left h
@@ -17,28 +14,10 @@ set $down j
 set $up k
 set $right l
 
-set $font_family DejaVu Sans Mono
-set $font_size 11
+set $font_family Monospace
+set $font_size 10
 
 
-#gaps 1
-
-
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-
-### Idle configuration
-#
-# Example configuration:
-#
 # exec swayidle -w \
 #          timeout 300 'swaylock -f -c 000000' \
 #          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
@@ -47,17 +26,6 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
-
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
 
 input "type:keyboard" {
     xkb_layout de,ru
@@ -76,10 +44,6 @@ input "type:touchpad" {
     natural_scroll enabled
 }
 
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
-
 ### Key bindings
 #
 # Basics:
@@ -92,7 +56,7 @@ input "type:touchpad" {
 
     # Start your launcher
     # bindsym $mod+Space exec dmenu_path | $menu $menu_args | xargs swaymsg exec
-    bindsym $mod+d exec bemenu-run --fn "$font_family-$font_size" --nb "$bg" --nf "$fgi" --sb "$bgf" --sf "$fg"
+    bindsym $mod+d exec bemenu-run --fn "$font_family-$font_size" --tf "$fg" --nb "$bg" --nf "$fg" --hb "$bgf" --hf "$fga" --ff "$fgi"
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -228,26 +192,28 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while echo "$(acpi -b | awk '{ print $3 $4 }') $(date +'%H:%M')"; do sleep 20; done
-   # swaybar_command waybar
+    status_command while echo "🔋$(acpi -b | awk '{ print $4 }') $(date +'%H:%M')"; do sleep 20; done
 
     colors {
-        #statusline #ffffff
-        #background #323232
-        #inactive_workspace #32323200 #32323200 #5c5c5c
-	statusline $fg
-	background $bg
-	focused_background $bgf
-	focused_workspace $bgf $bgf $fg
-	active_workspace $bga $bga $fg
-	inactive_workspace $bg $bg $fgi
+		statusline $fg
+		background $bg
+		focused_background $bg
+		focused_workspace $bgf $bgf $fg
+		active_workspace $bg $bg $fg
+		inactive_workspace $bg $bg $fgi
     }
 }
 
 default_border pixel 1
+gaps inner 3
+output * bg $bg solid_color
+
+#for_window [class="Termite"] border pixel 5
+
 
 set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
+
 
 include /etc/sway/config.d/*

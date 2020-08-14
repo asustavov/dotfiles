@@ -6,6 +6,11 @@ set iminsert=0
 
 set tabstop=4
 set wrap
+set linebreak
+set showbreak=…
+set columns=80
+nnoremap k gk
+nnoremap j gj
 
 set number relativenumber
 highlight LineNr ctermfg=DarkGray
