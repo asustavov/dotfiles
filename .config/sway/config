@@ -2,11 +2,15 @@
 set $mod Mod4
 set $term termite
 
-set $bg #000000
-set $bgf #d8dee8
-set $fg #d8dee8
-set $fga #2f343f
-set $fgi #7c7f84
+set $bgdesk #000000
+set $bg #2e3440
+set $bga #4c566a
+
+set $bgf #d8dee9
+set $fgf #2e3440
+set $fg #d8dee9
+set $fga #eceff4
+set $fgi #e5e9f0
 
 # Home row direction keys, like vim
 set $left h
@@ -55,8 +59,7 @@ input "type:touchpad" {
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    # bindsym $mod+Space exec dmenu_path | $menu $menu_args | xargs swaymsg exec
-    bindsym $mod+d exec bemenu-run --fn "$font_family-$font_size" --tf "$fg" --nb "$bg" --nf "$fg" --hb "$bgf" --hf "$fga" --ff "$fgi"
+    bindsym $mod+d exec bemenu-run -i -p ">>>" --fn "$font_family $font_size" --tf "$fg" --nb "$bg" --nf "$fg" --hb "$bgf" --hf "$fgf" --ff "$fgi"
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -97,8 +100,12 @@ input "type:touchpad" {
 #
 # Workspaces:
 #
+
+	set $ws1 main
+	workspace main output DP-3 DP-2 DP-1 eDP-1
+
     # Switch to workspace
-    bindsym $mod+1 workspace number 1
+    bindsym $mod+1 workspace main
     bindsym $mod+2 workspace number 2
     bindsym $mod+3 workspace number 3
     bindsym $mod+4 workspace number 4
@@ -109,7 +116,7 @@ input "type:touchpad" {
     bindsym $mod+9 workspace number 9
     bindsym $mod+0 workspace number 10
     # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+1 move container to workspace main
     bindsym $mod+Shift+2 move container to workspace number 2
     bindsym $mod+Shift+3 move container to workspace number 3
     bindsym $mod+Shift+4 move container to workspace number 4
@@ -196,17 +203,18 @@ bar {
 
     colors {
 		statusline $fg
-		background $bg
-		focused_background $bg
-		focused_workspace $bgf $bgf $fg
+		background $bgdesk
+		focused_workspace $bg $bg $fg
 		active_workspace $bg $bg $fg
-		inactive_workspace $bg $bg $fgi
+		inactive_workspace $bg $bg $fg
     }
 }
 
 default_border pixel 1
 gaps inner 3
-output * bg $bg solid_color
+output * bg $bgdesk solid_color
+
+xwayland disable
 
 #for_window [class="Termite"] border pixel 5
 
@@ -215,5 +223,6 @@ set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 
+exec swaymsg 'workspace main; exec firefox'
 
 include /etc/sway/config.d/*
