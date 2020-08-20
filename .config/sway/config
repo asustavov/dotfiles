@@ -12,6 +12,8 @@ set $fg #d8dee9
 set $fga #eceff4
 set $fgi #e5e9f0
 
+set $bb #5e81ac
+
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -21,6 +23,7 @@ set $right l
 set $font_family Monospace
 set $font_size 10
 
+client.focused	$bb $bb $fgf $fgf $bb
 
 # exec swayidle -w \
 #          timeout 300 'swaylock -f -c 000000' \
@@ -38,7 +41,7 @@ input "type:keyboard" {
 }
 
 input "type:pointer" {
-    scroll_factor 2
+    scroll_factor 2.5
 }
 
 input "type:touchpad" {
@@ -46,6 +49,8 @@ input "type:touchpad" {
     tap_button_map lrm
     scroll_method two_finger
     natural_scroll enabled
+	scroll_factor 0.5
+	pointer_accel 0.5
 }
 
 ### Key bindings
@@ -102,7 +107,7 @@ input "type:touchpad" {
 #
 
 	set $ws1 main
-	workspace main output DP-3 DP-2 DP-1 eDP-1
+	workspace main output DP-5 DP-4 DP-3 DP-2 DP-1 eDP-1
 
     # Switch to workspace
     bindsym $mod+1 workspace main
