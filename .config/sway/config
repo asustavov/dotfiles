@@ -64,7 +64,7 @@ input "type:touchpad" {
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d exec bemenu-run -i -p ">>>" --fn "$font_family $font_size" --tf "$fg" --nb "$bg" --nf "$fg" --hb "$bgf" --hf "$fgf" --ff "$fgi"
+    bindsym $mod+d exec bemenu-run -ib -p ">>>" --fn "$font_family $font_size" --tf "$fg" --nb "$bg" --nf "$fg" --hb "$bgf" --hf "$fgf" --ff "$fgi"
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -200,7 +200,7 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
+    position bottom 
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.

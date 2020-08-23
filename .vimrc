@@ -8,7 +8,7 @@ set tabstop=4
 set wrap
 set linebreak
 set showbreak=…
-set columns=80
+"set columns=80
 nnoremap k gk
 nnoremap j gj
 
