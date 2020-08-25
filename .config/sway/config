@@ -201,7 +201,7 @@ bindsym $mod+r mode "resize"
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position bottom 
-
+	tray_output all
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
     status_command ~/.local/bin/swaystatus.sh
@@ -227,6 +227,9 @@ xwayland disable
 set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
+
+output $laptop pos 2560 0
+output DP-5 pos 0 0
 
 exec swaymsg 'workspace main; exec firefox'
 
