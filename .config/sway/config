@@ -219,7 +219,7 @@ default_border pixel 1
 gaps inner 3
 output * bg $bgdesk solid_color
 
-xwayland enable
+xwayland disable
 
 #for_window [class="Termite"] border pixel 5
 
