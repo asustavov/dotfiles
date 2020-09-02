@@ -1,7 +1,7 @@
 ## The goal and disclaimer
 
 Install a minimal Systemd/Linux system on a mainstream laptop. These are my notes from 1 Sep 2020, done on Thinkpad T480. 
-Follow this guide on your own risk. If I'm ever going back to Arch, I'll update it. But probably not.
+Follow this guide on your own risk. 
 
 ## Preparation
 
