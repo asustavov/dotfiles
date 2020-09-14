@@ -1,8 +1,8 @@
 ### Variables
 set $mod Mod4
-set $term termite
+set $term alacritty
 
-set $bgdesk #000000
+set $bgdesk #636363
 set $bg #2e3440
 set $bga #4c566a
 
@@ -12,7 +12,8 @@ set $fg #d8dee9
 set $fga #eceff4
 set $fgi #e5e9f0
 
-set $bb #5e81ac
+#set $bb #5e81ac
+set $bb #636363
 
 # Home row direction keys, like vim
 set $left h
@@ -24,6 +25,7 @@ set $font_family Monospace
 set $font_size 10
 
 client.focused	$bb $bb $fgf $fgf $bb
+#client.active   $bb $bb $fgf $fgf $bb
 
 # exec swayidle -w \
 #          timeout 300 'swaylock -f -c 000000' \
@@ -36,6 +38,7 @@ client.focused	$bb $bb $fgf $fgf $bb
 
 input "type:keyboard" {
     xkb_layout de,ru
+	xkb_variant nodeadkeys,
     xkb_options grp:alt_shift_toggle
     xkb_numlock enabled
 }
@@ -53,12 +56,21 @@ input "type:touchpad" {
 	pointer_accel 0.5
 }
 
+input "type:touch" {
+	tap enabled 
+	tap_button_map lrm	
+	drag enabled	
+}
+
+
 ### Key bindings
 #
 # Basics:
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+
+	bindsym $mod+Shift+b exec firefox
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -204,14 +216,18 @@ bar {
 	tray_output all
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command ~/.local/bin/swaystatus.sh
+    status_command ~/.config/sway/swaystatus.sh
 
     colors {
 		statusline $fg
-		background $bgdesk
-		focused_workspace $bg $bg $fg
-		active_workspace $bg $bg $fg
-		inactive_workspace $bg $bg $fg
+		background $bgdesk 
+		#focused_workspace $bg $bg $fg
+		#active_workspace $bg $bg $fg
+		#inactive_workspace $bg $bg $fg
+
+		focused_workspace $bgdesk $bgdesk $fg
+		active_workspace $bgdesk $bgdesk $fg
+		inactive_workspace $bgdesk $bgdesk $fg
     }
 }
 
@@ -223,14 +239,14 @@ xwayland disable
 
 #for_window [class="Termite"] border pixel 5
 
+for_window [workspace="main"] floating enable
 
-set $laptop eDP-1
-bindswitch --reload --locked lid:on output $laptop disable
-bindswitch --reload --locked lid:off output $laptop enable
+bindswitch --reload --locked lid:on output eDP-1 disable
+bindswitch --reload --locked lid:off output eDP-1 enable
 
 output $laptop pos 2560 0
 output DP-5 pos 0 0
 
-exec swaymsg 'workspace main; exec firefox'
+#exec swaymsg 'workspace main; exec firefox'
 
 include /etc/sway/config.d/*

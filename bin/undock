@@ -1,0 +1,2 @@
+swaymsg for_window [workspace="main"] floating disable
+swaymsg output DP-5 bg '#000000' solid_color
